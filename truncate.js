@@ -1,14 +1,28 @@
 var fs = require('fs');
 var path = require('path');
 var process = require('process');
+var workingDirectory = process.cwd().slice(2);
+var fileType = 'pdf';
 
-fs.readdir('/Users/joshua.boyan/Desktop/resolution-builder', function(err, files) {
+fs.readdir(workingDirectory, function(err, files) {
 	if (err) {
 		console.error('Could list the directory.', err);
 		process.exit(1);
 	}
+	var finishedFiles = [];
 	files.forEach(function(file, index) {
-		console.log(file);
+		/*NOT WORKING
+		If the file we are about to truncate will match another file in the array 
+		do NOT truncate it but log the occurane
+		if (file.slice(-3) === fileType) {
+			console.log(file.slice(0, 6).toString());
+			if(file.slice(0, 6).toString() !== file[index] - 1) {
+			finishedFiles.push(file.slice(0,6));
+			} else {
+				console.log('Did not truncate:',file );
+			}
+		}*/
 		
 	});
+	console.log(finishedFiles);
 		   });
