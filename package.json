@@ -1,0 +1,21 @@
+{
+  "name": "resolution-builder",
+  "version": "1.0.0",
+  "description": "Build a HTML5 table from and xlsx spreadsheet and a folder of files to link to",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "\u0016https://github.com/joshboyan/resolution-builder.git"
+  },
+  "keywords": [
+    "truncate",
+    "xlsx",
+    "to",
+    "table"
+  ],
+  "author": "joshboyan",
+  "license": "ISC"
+}
