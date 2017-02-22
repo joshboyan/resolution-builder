@@ -3,7 +3,7 @@ var fs = require('fs');
 var path = require('path');
 var process = require('process');
 var workingDirectory = process.cwd().slice(2);
-var fileType = 'pdf';
+var fileType = '.pdf';
 
 //Read all the file names in the directory
 fs.readdir(workingDirectory, function (err, files) {
@@ -13,7 +13,7 @@ fs.readdir(workingDirectory, function (err, files) {
 	}
 	//Create array for all file we want to truncate
 	var startingFiles = files.filter(function (file) {
-		return (file.slice(-3) === fileType);
+		return (file.slice(-4) === fileType);
 	});
 	var finishedFiles = [];
 	// Loop over the selcted files
@@ -21,6 +21,9 @@ fs.readdir(workingDirectory, function (err, files) {
 		//Truncate the first file
 		if (index === 0) {
 			finishedFiles.push(file.slice(0, 6));
+			fs.rename(workingDirectory + '/' + startingFiles[index], workingDirectory + '/' + finishedFiles[index] + fileType, function(err) {
+            if ( err ) console.log('ERROR: ' + err);
+        });
 		} else {
 			// Check to make sure the file will not be identical to the file before it before truncating
 			if (file.slice(0, 6).toString() !== startingFiles[index - 1].slice(0, 6).toString()) {
