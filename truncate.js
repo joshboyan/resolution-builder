@@ -15,7 +15,9 @@ fs.readdir(workingDirectory, function (err, files) {
 	var startingFiles = files.filter(function (file) {
 		return (file.slice(-4) === fileType);
 	});
+	// Create array to hold new file names
 	var finishedFiles = [];
+	// This function renames the file we are at in or startingFiles.forEach function to the disk
 	function renameFile(index) {
 		fs.rename(workingDirectory + '/' + startingFiles[index], workingDirectory + '/' + finishedFiles[index] + fileType, function(err) {
             if ( err ) console.log('ERROR: ' + err);
@@ -25,17 +27,24 @@ fs.readdir(workingDirectory, function (err, files) {
 	startingFiles.forEach(function (file, index) {
 		//Truncate the first file
 		if (index === 0) {
+			// Push the truncated file to the finished file array
 			finishedFiles.push(file.slice(0, 6));
+			// Write the truncated name to disk
 			renameFile(index);
 		} else {
 			// Check to make sure the file will not be identical to the file before it before truncating
 			if (file.slice(0, 6).toString() !== startingFiles[index - 1].slice(0, 6).toString()) {
-
+				// Push the truncated file to the finished file array
 				finishedFiles.push(file.slice(0, 6));
+				// Write the truncated name to disk
+				renameFile(index);
 			// If the file will be identical reformat the full name to be web safe
 			} else {
 				console.log('Did not truncate:', file);
+				// Push the truncated file to the finished file array
 				finishedFiles.push(file.toLowerCase().replace(' ', '-'));
+				// Write the reformatted name to disk
+				renameFile(index);
 			}
 		}
 
