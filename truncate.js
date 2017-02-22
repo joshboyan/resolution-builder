@@ -16,14 +16,17 @@ fs.readdir(workingDirectory, function (err, files) {
 		return (file.slice(-4) === fileType);
 	});
 	var finishedFiles = [];
-	// Loop over the selcted files
+	function renameFile(index) {
+		fs.rename(workingDirectory + '/' + startingFiles[index], workingDirectory + '/' + finishedFiles[index] + fileType, function(err) {
+            if ( err ) console.log('ERROR: ' + err);
+        });
+	}
+	// Loop over the selected files
 	startingFiles.forEach(function (file, index) {
 		//Truncate the first file
 		if (index === 0) {
 			finishedFiles.push(file.slice(0, 6));
-			fs.rename(workingDirectory + '/' + startingFiles[index], workingDirectory + '/' + finishedFiles[index] + fileType, function(err) {
-            if ( err ) console.log('ERROR: ' + err);
-        });
+			renameFile(index);
 		} else {
 			// Check to make sure the file will not be identical to the file before it before truncating
 			if (file.slice(0, 6).toString() !== startingFiles[index - 1].slice(0, 6).toString()) {
