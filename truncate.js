@@ -3,14 +3,10 @@ var fs = require('fs');
 var path = require('path');
 var process = require('process');
 var workingDirectory = process.cwd().slice(2);
+// Use first argument for file length or default to 6 characters
 var finishedLength = process.argv[2] || 6;
+// Use second argument for file type or default to '.pdf'
 var fileType = process.argv[3] || '.pdf';
-
-/*process.argv.forEach(function (val, index, array) {
-  console.log(index + ': ' + val);
-});
-console.log(finishedLength);
-console.log(fileType);*/
 
 //Read all the file names in the directory
 fs.readdir(workingDirectory, function (err, files) {
