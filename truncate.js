@@ -6,11 +6,11 @@ var workingDirectory = process.cwd().slice(2);
 var finishedLength = process.argv[2] || 6;
 var fileType = process.argv[3] || '.pdf';
 
-process.argv.forEach(function (val, index, array) {
+/*process.argv.forEach(function (val, index, array) {
   console.log(index + ': ' + val);
 });
 console.log(finishedLength);
-console.log(fileType);
+console.log(fileType);*/
 
 //Read all the file names in the directory
 fs.readdir(workingDirectory, function (err, files) {
@@ -24,12 +24,13 @@ fs.readdir(workingDirectory, function (err, files) {
 	});
 	// Create array to hold new file names
 	var finishedFiles = [];
-	// This function renames the file we are at in or startingFiles.forEach function to the disk
+	// This function truncates the file we are at in or startingFiles.forEach function to the disk
 	function truncateFile(index) {
 		fs.rename(workingDirectory + '/' + startingFiles[index], workingDirectory + '/' + finishedFiles[index] + fileType, function(err) {
             if ( err ) console.log('ERROR: ' + err);
         });
 	}
+	// This function renames the file we are at in or startingFiles.forEach function to the disk
 	function renameFile(index) {	
 		fs.rename(workingDirectory + '/' + startingFiles[index], workingDirectory + '/' + finishedFiles[index], function(err) {
             if ( err ) console.log('ERROR: ' + err);
@@ -45,7 +46,7 @@ fs.readdir(workingDirectory, function (err, files) {
 			truncateFile(index);
 		} else {
 			// Check to make sure the file will not be identical to the file before it before truncating
-			if (file.slice(0, finishedLength).toString() !== startingFiles[index - 1].slice(0, 6).toString()) {
+			if (file.slice(0, finishedLength).toString() !== startingFiles[index - 1].slice(0, finishedLength).toString()) {
 				// Push the truncated file to the finished file array
 				finishedFiles.push(file.slice(0, finishedLength));
 				// Write the truncated name to disk
