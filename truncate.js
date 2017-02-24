@@ -58,5 +58,4 @@ fs.readdir(workingDirectory, function (err, files) {
 		}
 
 	});
-	console.log(finishedFiles);
 });
