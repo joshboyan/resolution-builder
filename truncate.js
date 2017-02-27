@@ -47,7 +47,6 @@ fs.readdir(workingDirectory, function (err, files) {
 				renameFile(index);
 			}
 		}
-
 	});
 	console.log(finishedFiles);
 });
