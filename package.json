@@ -17,5 +17,8 @@
     "table"
   ],
   "author": "joshboyan",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "xlsx": "^0.8.6"
+  }
 }
