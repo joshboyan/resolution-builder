@@ -42,18 +42,19 @@ fs.readdir(workingDirectory, function (err, files) {
 			truncateFile(index);
 		} else {
 			// Check to make sure the file will not be identical to the file before it before truncating
-			if (file.slice(0, finishedLength).toString() !== startingFiles[index - 1].slice(0, finishedLength).toString()) {
-				// Push the truncated file to the finished file array
-				finishedFiles.push(file.slice(0, finishedLength));
-				// Write the truncated name to disk
-				truncateFile(index);
 			// If the file will be identical reformat the full name to be web safe
-			} else {
+			if (finishedFiles.indexOf(file.slice(0, finishedLength).toString()) > -1) {
 				console.log('Did not truncate:', file);
 				// Push the truncated file to the finished file array
 				finishedFiles.push(file.toLowerCase().replace(/\s/gi, '-'));
 				// Write the reformatted name to disk
-				renameFile(index);
+				renameFile(index);				
+			// Truncate the file if it will not create a duplicate 
+			} else {
+				// Push the truncated file to the finished file array
+				finishedFiles.push(file.slice(0, finishedLength));
+				// Write the truncated name to disk
+				truncateFile(index);				
 			}
 		}
 	});
