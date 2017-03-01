@@ -42,15 +42,23 @@ for (var sheet in sheets) {
 				} else {
 					//The second row in the table closes the thead element
 					if (cell === 'A2') {
-						htmlFile += '\n' + '</tr>' + '\n' + '</thead>' + '\n' + '<tr>' + '\n' + '<th>' + '<a href ="' + 'link' + counter + '">' + sheets[sheet][cell].w.replace('&','&amp;').replace('-','&ndash;') + '</a>' + '</th>';
+						htmlFile += '\n' + '</tr>' + '\n' + '</thead>' + '\n' + '<tr>' + '\n' + '<th>' + '<a href="">' + sheets[sheet][cell].w.replace('&','&amp;').replace('-','&ndash;') + '</a>' + '</th>';
 					} else {
 						// The first cell in each row
 						if (cell.slice(0, 1) === 'A') {
-							htmlFile += '\n' + '</tr>' + '\n' + '<tr>' + '\n' + '<th>' + '<a href="' + 'link' + counter + '">' + sheets[sheet][cell].w.replace('&','&amp;').replace('-','&ndash;') + '</a>'+ '</th>';
+							htmlFile += '\n' + '</tr>' + '\n' + '<tr>' + '\n' + '<th>' + '<a href="">' + sheets[sheet][cell].w.replace('&','&amp;').replace('-','&ndash;') + '</a>'+ '</th>';
 							//All the other cells
 						} else {
 							htmlFile += '\n' + '<td>' + sheets[sheet][cell].w.replace('&','&amp;').replace('-','&ndash;') + '</td>';
 						}
+					}					
+					if (cell.slice(0,1) === 'D') {
+						//console.log(cell);
+						var link = ('link' + (counter + 1)).toString();
+						console.log(link);
+						var newLink = 'href="documents/' + sheets[sheet][cell].w + '.pdf"';
+						console.log(newLink);
+						htmlFile = htmlFile.replace('href=""', newLink);
 					}
 				}
 			}
