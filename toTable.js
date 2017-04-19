@@ -2,7 +2,7 @@ var fs = require('fs');
 var process = require('process');
 var workingDirectory = process.cwd().slice(2);
 var XLSX = require('xlsx');
-var workbook = XLSX.readFile('resolutions.xlsx');
+var workbook = XLSX.readFile(process.argv[2]);
 var sheets = workbook.Sheets;
 var htmlFile = '';
 
@@ -39,14 +39,14 @@ for (var sheet in sheets) {
 				} else {
 					//The second row in the table closes the thead element
 					if (cell === 'A2') {
-						htmlFile += '\n' + '</tr>' + '\n' + '</thead>' + '\n' + '<tr>' + '\n' + '<th>' + '<a href="">' + sheets[sheet][cell].w.replace('&', '&amp;').replace('-', '&ndash;').replace('–', '&mdash;') + '</a>' + '</th>';
+						htmlFile += '\n' + '</tr>' + '\n' + '</thead>' + '\n' + '<tbody>' + '\n' +'<tr>' + '\n' + '<th>' + '<a href="">' + sheets[sheet][cell].w.replace('&', '&amp;').replace('-', '&ndash;').replace('–', '&mdash;') + '</a>' + '</th>';
 					} else {
 						// The first cell in each row
 						if (cell.slice(0, 1) === 'A') {
 							htmlFile += '\n' + '</tr>' + '\n' + '<tr>' + '\n' + '<th>' + '<a href="">' + sheets[sheet][cell].w.replace('&', '&amp;').replace('-', '&ndash;').replace('–', '&mdash;') + '</a>' + '</th>';
 							//All the other cells
 						} else {
-							htmlFile += '\n' + '<td>' + sheets[sheet][cell].w.replace('&', '&amp;').replace('-', '&ndash;').replace('–', '&mdash') + '</td>';
+							htmlFile += '\n' + '<td>' + sheets[sheet][cell].w.replace('&', '&amp;').replace('-', '&ndash;').replace('–', '&mdash;') + '</td>';
 						}
 					}
 					// Insert link to the proper pdf file based off the number in the last column
@@ -58,7 +58,7 @@ for (var sheet in sheets) {
 			}
 		}
 		// Close the tags
-		htmlFile += '\n' + '</tr>' + '\n' + '</table>' + '\n' + '</body>' + '\n' + '</html>';
+		htmlFile += '\n' + '</tr>' + '\n' + '</tbody>'+ '\n' + '</table>' + '\n' + '</body>' + '\n' + '</html>';
 	}
 }
 // Write htmlFile variable to the disk with newFileName as the name
